@@ -1,0 +1,20 @@
+clear all
+close all
+clc
+
+x = [6.1543 7.9194 9.2181 7.3821 1.7627 4.0571 9.3547 9.1690 4.1027 8.9365];
+y = [21.0518 23.0857 31.0830 27.3933 5.9044 15.8872 32.5721 26.3197 11.4262 29.9518];
+
+% Realizar y dibujar el ajuste de una recta
+A = [x' ones(size(x'))];
+coefs = pinv(A)*y';
+
+salida=A*coefs;
+
+plot(salida);
+legend('salida apartado a)');
+
+x(end+1) = 15;
+y(end+1) = 2
+
+

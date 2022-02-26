@@ -1,0 +1,178 @@
+1. TITLE:
+	DNA Dataset (STATLOG version) - Primate splice-junction gene sequences (DNA)
+        with associated imperfect domain theory
+
+	PROBLEM DESCRIPTION
+	Splice junctions are points on a DNA sequence at which `superfluous' DNA is
+	removed during the process of protein creation in higher organisms.  The
+	problem posed in this dataset is to recognize, given a sequence of DNA, the
+	boundaries between exons (the parts of the DNA sequence retained after
+	splicing) and introns (the parts of the DNA sequence that are spliced
+	out). 
+
+	PURPOSE
+	This problem consists of two subtasks: recognizing exon/intron
+	boundaries (referred to as EI sites), and recognizing intron/exon boundaries
+	(IE sites). (In the biological community, IE borders are referred to
+	a ``acceptors'' while EI borders are referred to as ``donors''.)
+ 
+2. USE IN STATLOG
+
+	2.1- Testing Mode		
+		Train & Test
+
+	2.2- Special Preprocessing	
+		Yes
+
+	2.3- Test Results
+				Error Rate	TIME
+		Algorithm	Train	Test	Train	Test
+		=========	============================
+		Radial		0.015	0.041	?	?
+		Dipol92		0.007	0.048	213	10
+		Alloc80		0.063	0.057	14394	?
+		QuaDisc		0	0.059	1581	809
+		Discrim		0.034	0.059	929	31
+		LogDisc		0.008	0.061	5057	76
+		Bayes		0.052	0.068	52	15
+		Castle		0.061	0.072	397	225
+		IndCart		0.040	0.073	523	516
+		C4.5		0.040	0.076	9	2
+		Cart		0.075	0.085	615	9
+		BackProp	0.014	0.088	4094	9
+		BayTree		0.001	0.095	82	11
+		Cn2		0.002	0.095	869	74
+		Ac2		0	0.100	12378	87
+		NewId		0	0.100	698	1
+		Smart		0.034	0.115	79676	16
+		Cal5		0.104	0.131	1616	8
+		Itrule		0.131	0.135	2212	6
+		KNN		0	0.146	2428	882
+		Kohonen		0.104	0.339	?	?
+		Default		0.475	0.492	?	?
+		LVQ		1.0
+		Cascade		1.0
+
+3. SOURCES and PAST USAGE
+   3.1 SOURCES
+   	(a) Creators: 
+       		- all examples taken from Genbank 64.1 (ftp site: genbank.bio.net)
+       		- categories "ei" and "ie" include every "split-gene" 
+         	for primates in Genbank 64.1
+       		- non-splice examples taken from sequences known not to include
+         	a splicing site 
+   	(b) Donor: G. Towell, M. Noordewier, and J. Shavlik, 
+              {towell,shavlik}@cs.wisc.edu, noordewi@cs.rutgers.edu
+   	(c) Date received: 1/1/92
+
+	The StaLog dna dataset is a processed vesrion of the Irvine 
+	database described below.  The main difference is that the 
+	symbolic variables representing the nucleotides (only A,G,T,C) 
+	were replaced by 3 binary indicator variables.  Thus the original 
+	60 symbolic attributes were changed into 180 binary attributes.  
+	The names of the examples were removed.  The examples with 
+	ambiguities were removed (there was very few of them, 4).   
+	The StatLog version of this dataset was produced by Ross King
+	at Strathclyde University.   For original details see the Irvine 
+	database documantation.
+
+	The nucleotides A,C,G,T were given indicator values as follows
+
+		A -> 1 0 0
+    		C -> 0 1 0
+    		G -> 0 0 1
+    		T -> 0 0 0
+
+	The class values are 
+		ei -> 1
+                ie -> 2
+                n  -> 3
+   3.2 PAST USAGE
+
+	(a) machine learning:
+       	-- M. O. Noordewier and G. G. Towell and J. W. Shavlik, 1991; 
+           "Training Knowledge-Based Neural Networks to Recognize Genes in 
+           DNA Sequences".  Advances in Neural Information Processing Systems,
+           volume 3, Morgan Kaufmann.
+
+	-- G. G. Towell and J. W. Shavlik and M. W. Craven, 1991;  
+           "Constructive Induction in Knowledge-Based Neural Networks",  
+           In Proceedings of the Eighth International Machine Learning
+	   Workshop, Morgan Kaufmann.
+
+        -- G. G. Towell, 1991;
+           "Symbolic Knowledge and Neural Networks: Insertion, Refinement, and
+           Extraction", PhD Thesis, University of Wisconsin - Madison.
+
+        -- G. G. Towell and J. W. Shavlik, 1992;
+           "Interpretation of Artificial Neural Networks: Mapping 
+           Knowledge-based Neural Networks into Rules", In Advances in Neural
+           Information Processing Systems, volume 4, Morgan Kaufmann.
+
+   	(b) attributes predicted: given a position in the middle of a window
+       		60 DNA sequence elements (called "nucleotides" or "base-pairs"),
+       		decide if this is a
+		a) "intron -> exon" boundary (ie) [These are sometimes called "donors"]
+		b) "exon -> intron" boundary (ei) [These are sometimes called "acceptors"]
+		c) neither                      (n)
+   	(c) Results of study indicated that machine learning techniques (neural
+       		networks, nearest neighbor, contributors' KBANN system) performed as
+       		well/better than classification based on canonical pattern matching
+       		(method used in biological literature).
+
+	HISTORY
+	This dataset has been developed to help evaluate a "hybrid" learning
+   	algorithm (KBANN) that uses examples to inductively refine preexisting
+   	knowledge.  Using a "ten-fold cross-validation" methodology on 1000
+   	examples randomly selected from the complete set of 3190, the following 
+   	error rates were produced by various ML algorithms (all experiments
+   	run at the Univ of Wisconsin, sometimes with local implementations
+   	of published algorithms). 
+
+                System	       Neither    EI      IE
+                ----------     -------  -----   -----
+		KBANN    	 4.62    7.56    8.47
+		BACKPROP    	 5.29    5.74   10.75
+		PEBLS    	 6.86    8.18    7.55
+		PERCEPTRON    	 3.99   16.32   17.41
+		ID3    		 8.84   10.58   13.99
+		COBWEB   	11.80   15.04    9.46
+		Near. Neighbor	31.11   11.65    9.09
+	     	
+   	Type of domain: non-numeric, nominal (one of A, G, T, C)
+
+*************************************************************
+
+4. DATASET DISCRIPTION
+	NUMBER OF EXAMPLES: 
+		3186
+
+		Train	2000
+		Test	1186
+
+	NUMBER OF CLASSES: 
+		3 (one of 1,2,3)
+
+		Distribution of classes
+			Class	Train		Test
+			------------------------------------	
+			1	 464 (23.20%)	303 (25.55%)
+		 	2	 485 (24.25%)	280 (23.61%)
+		 	3	1051 (52.55%)	603 (50.84%)
+	
+	NUMBER OF ATTRIBUTES:
+		180 binary indicator variables
+
+	Hint.   Much better performance is generally observed if attributes
+		closest to the junction are used.
+		In the StatLog version, this means using
+		attributes A61 to A120 only.
+
+
+CONTACTS
+	statlog-adm@ncc.up.pt
+	bob@stams.strathclyde.ac.uk
+	
+
+================================================================================
+

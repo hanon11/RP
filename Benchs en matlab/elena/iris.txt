@@ -1,0 +1,182 @@
+                 #####################
+                 # The Iris database #
+                 #####################
+
+1. Sources:
+
+     (*) This database is taken from the ftp anonymous "UCI Repository Of 
+	 Machine Learning Databases and Domain Theories" 
+	 (ics.uci.edu: pub/machine-learning-databases).
+
+     (a) Original source:
+
+       Anderson, E. (1935) "The Irises of the Gaspe Peninsula",
+       Bulletin of the American Iris Society, 59, 2-5.
+    
+       Made famous by R. A. Fisher.
+
+     (b) Donor: Michael Marshall (MARSHALL%PLU@io.arc.nasa.gov)
+
+
+
+
+2. Past Usage: Publications: too many to mention!!!  Here are a few.
+
+   1. Fisher,R.A. "The use of multiple measurements in taxonomic problems"
+      Annual Eugenics, 7, Part II, 179-188 (1936); also in "Contributions
+      to Mathematical Statistics" (John Wiley, NY, 1950).
+
+   2. Duda,R.O., & Hart,P.E. (1973) Pattern Classification and Scene Analysis.
+      (Q327.D83) John Wiley & Sons.  ISBN 0-471-22361-1.  See page 218.
+
+   3. Dasarathy, B.V. (1980) "Nosing Around the Neighborhood: A New System
+      Structure and Classification Rule for Recognition in Partially Exposed
+      Environments".  IEEE Transactions on Pattern Analysis and Machine
+      Intelligence, Vol. PAMI-2, No. 1, 67-71.
+
+   4. Gates, G.W. (1972) "The Reduced Nearest Neighbor Rule".  IEEE 
+      Transactions on Information Theory, May 1972, 431-433.
+
+   5. See also: 1988 MLC Proceedings, 54-64.  Cheeseman et al's AUTOCLASS II
+      conceptual clustering system finds 3 classes in the data.
+
+
+
+
+3. Relevant Information:
+
+   This is perhaps the best known database to be found in the pattern
+   recognition literature.  Fisher's paper is a classic in the field
+   and is referenced frequently to this day.  (See Duda & Hart, for
+   example.)  The data set contains 3 classes of 50 instances each,
+   where each class refers to a type of iris plant.  One class is
+   linearly separable from the other 2; the latter are NOT linearly
+   separable from each other.
+   Predicted attribute: class of iris plant.
+   This is an exceedingly simple domain.
+
+
+
+
+4. Attribute Information:
+
+   1. sepal length in cm
+   2. sepal width in cm
+   3. petal length in cm
+   4. petal width in cm
+   5. class: Iris Setosa:      class 0
+	     Iris Versicolour: class 1
+	     Iris Virginica:   class 2
+
+
+
+5. Examples:
+
+    5.1 3.5 1.4 0.2 0
+    4.9 3.0 1.4 0.2 2
+    4.7 3.2 1.3 0.2 0
+    4.6 3.1 1.5 0.2 1
+
+
+
+
+6. Summary Statistics:
+
+    Attribute  Min    Max     Mean    Standard    
+				     deviation   
+
+       1       4.3    7.9     5.84     0.83          
+       2       2.0    4.4     3.05     0.43       
+       3       1.0    6.9     3.76     1.76       
+       4       0.1    2.5     1.20     0.76       
+
+    Class Distribution: number of instances per class
+
+      	class 0 50 - 33.3%
+	class 1 50 - 33.3%
+	class 2 50 - 33.3%
+
+   Correlation matrix: 
+
+      {{ 1.00,-0.11, 0.87, 0.82},
+       {-0.11, 1.00,-0.42,-0.36},
+       { 0.87,-0.42, 1.00, 0.96},
+       { 0.82,-0.36, 0.96, 1.00}}
+
+   Attributes maximum precision: 10 bits.
+
+   The database resulting from the centering and reduction by attribute 
+   of the iris database is on the ftp server in the `REAL/iris/iris_CR.dat.Z' 
+   file.
+
+
+
+
+7. Confusion matrix obtained with the k_NN classifier 
+   on the iris_CR.dat database (with the Leave_One_Out test method) 
+   k was set to 7 in order to reach the minimum error rate : 3.3 %. 
+
+	{{0,   0,    1,    2 },
+	 {0,100.0,  0.0,  0.0},
+	 {1,  0.0, 96.0,  4.0},
+	 {2,  0.0,  2.0, 98.0}}
+
+
+
+
+9. Result of the Principal Component Analysis:
+
+The Principal Components Analysis is a very classical method in pattern
+recognition [Duda73].
+PCA reduces the sample dimension in a linear way for the best
+representation in lower dimensions keeping the maximum of inertia. The
+best axe for the representation is however not necessary the best axe
+for the discrimination. After PCA, features are selected according to
+the percentage of initial inertia which is covered by the different
+axes and the number of features is determined according to the
+percentage of initial inertia to keep for the classification process.
+This selection method has been applied on the iris_CR database.
+When quasi-linear correlations exists between some initial features,
+these redundant dimensions are removed by PCA and this preprocessing is
+then recommended.  In this case, before a PCA, the determinant of the
+data covariance matrix is near zero; this database is thus badly
+conditioned for all process which use this information (the quadratic
+classifier for example).
+
+The following files are available for the iris database:
+  - ``iris_PCA.dat.Z'', the projection of the ``iris_CR'' database on its 
+        principal components (sorted in a decreasing order of the related 
+        inertia percentage; so, if you desire to work on the database projected on 
+        its x first principal components you only have to keep the x first attributes 
+        of the iris_PCA.dat database and the class labels (last attribute)). 
+
+  - ``iris_corr_circle.ps'', a graphical representation of the 
+        correlation between the initial attributes and the two first 
+        principal components,
+
+  - ``iris_proj_PCA.ps'', a graphical representation of the 
+        projection of the initial database on the two first principal 
+        components,
+
+
+Table here below provides the inertia percentages associated to the 
+eigenvalues corresponding to the principal component axis sorted in 
+the decreasing order of their associated inertia percentage.
+
+
+    Eigen   Value   Inertia    Cumulated
+    value          percentage   inertia
+
+      1    2.89141    72.8        72.8
+      2    0.91508    23.0        95.8
+      3    0.14637     3.7        99.5
+      4    0.02047     0.5       100.0
+
+[Duda73]
+Duda, R.O. and Hart, P.E.,
+Pattern Classification and Scene Analysis,
+John Wiley & Sons, 1973.
+
+
+
+

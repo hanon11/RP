@@ -1,0 +1,162 @@
+                 #########################
+                 # The Gaussian database #
+                 #########################
+
+
+1. Aim :
+
+    Benchmarking studies of the classifier behavior for different 
+    dimensionalities of the input vectors, for heavy overlapped
+    distributions and for non linear separability.
+
+
+2. Description :
+   
+    A set of seven databases corresponding to the same problem, but with 
+    dimensionality ranging from 2 to 8.
+
+    The class 0 is represented by a multivariate normal distribution with
+    zero mean and standard deviation egal to 1 in all dimensions, and 
+    the class 1 by a normal distribution with zero mean and standard 
+    deviation egal to 2 in all dimensions.
+    There are 5000 patterns, 2500 in each class.
+
+    The files containing these databases are named 'gauss_iD.data', where i 
+    corresponds to the dimensionality.
+    A graphical representation of the two_dimensional database 'gauss_2D.data'
+    is provided with the file 'gauss_2D.ps'. 
+
+    In order to test only the influence of a dimension increase, the databases 
+    were generated in the same way for all dimensions. The vectors presentation 
+    order is thus the same and for a given vector, all the shared attributes 
+    in the 7 databases are the same.
+    To give an example, the last vector of the 4 first databases are listed 
+    here above:  
+      gauss_2D.dat:
+    -0.4282119111 -0.8819605369  0 
+      gauss_3D.dat:
+    -0.4282119111 -0.8819605369 -1.5580180940  0 
+      gauss_4D.dat:
+    -0.4282119111 -0.8819605369 -1.5580180940 -1.3686420959  0 
+      gauss_5D.dat:
+    -0.4282119111 -0.8819605369 -1.5580180940 -1.3686420959  0.7561913235  0
+
+    
+    Equivalent databases where already studied by Kohonen in:
+      Kohonen, T. and Barna, G. and Chrisley, R., "Statistical Pattern 
+      Recognition with Neural Networks: Benchmarking Studies", 
+      IEEE Int. Conf. on Neural Networks, SOS Printing,San Diego, 1988.
+
+    In this paper, where these databases are refered to as the "hard task",
+    the performances of three basis types of neural-like networks    
+    (Backpropagation network, Boltzmann machine and Learning Vector 
+    Quantization) are evaluated and compared to the theoretical limit.
+
+
+3. Best theoretical Bayes confusion :
+
+   For this kind of distributions, the theoretical Bayes boundery
+   is an hypersphere with a radius depending on the database 
+   dimensionality d :
+ 
+                   Radius = sqrt(8/3 * ln(2^d))
+  
+   The integral of a gaussian probability density function into 
+   an hypersphere of radius R is egal to
+
+		 I = gamma( d/2 , (R^2)/(2.sigma^2) ),
+
+   were gamma(a,x) is the value of the incomplete Gamma function
+   of a, integrated to limit x. 
+
+   It is thus very easy to compute the element of the 
+   theoretical confusion matrix for the different databases : 
+
+   dim  Radius  Conf_00  Conf_01  Conf_10  Conf_11  Err_tot
+                   %        %        %        %        %
+    2   1.9227   84.25    15.75    37.00    63.00    26.37
+    3   2.3550   86.41    13.59    29.13    70.87    21.36
+    4   2.7191   88.35    11.65    23.64    76.36    17.64
+    5   3.0401   90.02     9.98    19.53    80.47    14.75
+    6   3.3302   91.44     8.56    16.32    83.68    12.44
+    7   3.5970   92.64     7.36    13.75    86.25    10.55
+    8   3.8454   93.66     6.34    11.66    88.34     9.00
+
+
+
+4. Confusion obtained with the k_NN classifier (Leave_One_Out).
+   k has been set in order to obtain the best total error rate.
+
+   dim   Conf_00  Conf_01  Conf_10  Conf_11  k  Err_tot
+            %        %        %        %           %
+    2     84.4     15.6     39.1     60.9   33   27.3 
+    3     87.4     12.6     31.8     68.2   35   22.2
+    4     90.9      9.1     29.7     70.3   23   19.4
+    5     93.1      6.9     28.6     71.4   13   17.7
+    6     95.8      4.2     29.4     70.6   11   16.8
+    7     96.5      3.5     28.4     71.6    7   15.9
+    8     97.3      2.7     29.6     70.4    5   16.1
+
+  From this table, one can see that, for the k_nn classifier, when the 
+  input dimension increases, the performances improve at a rate 
+  significantly less than the rate improvement of the theoritical limit.
+  This is due to the fact that the number of patterns being egal for each
+  dimensionality (5000), the size of the database versus the dimensionality 
+  is decreasing while the input dimension increases. 
+  This phenomenon is explained in the first axis A report.
+   
+    
+5. Performances reported by Kohonen :
+
+  - Multi-Layer Perceptron (BackPropagation)
+
+    A two-layer network was used; this is sufficient to form convex 
+    decision regions, which is the case here.
+    Learning rate: 0.01; momentum coefficient: 0.9.
+    - 8 nodes in the input layer, with a number of inputs egal to the 
+    dimensionality of the input vectors.
+    - 2 nodes in the output layer (number of classes).
+    - One bias weight for each node.
+    There was thus a total of 8.d+26 weights 
+    (where d is the dimensionality of input).
+    The results are shown in the table below.
+
+  - Binary Boltzmann machine
+ 
+    In each dimension, the input range was splitted into 20 subranges.
+    There were thus 20 input units for each dimension, all of them being 
+    set 'off' except the one which was associated with the subrange 
+    containing the input value of the dimension. 
+    In addition, there were 2 hidden and 2 output units.
+    This corresponds to a number of weights equal to 80.d+3
+    (where d is the dimensionality of input).
+    The results are shown in the table here below.
+    Reaching the minimal error level required about 4 500 000 samples!
+
+  - Learning Vector Quantization.
+
+    The number of processing units was chosen to be 5.d, 
+    thus resulting in 5.d^2 weights.
+    The LVQ1 algorithm was used with the Euclidian metric and
+    the codebook initialisation was ensured by k-means.
+    The learning was done with alpha decreasing from 0.01 to 0 over 
+    100000 samples.
+    The results are shown on the table here above.
+
+   The results reported in the paper only concern the total error rate.
+   They are:
+
+	 dim  MLP(BP)  BM    LVQ1   Theoritical
+				       limit
+	  2    26.3   26.5   26.5     26.37
+	  3    21.5   21.6   21.8     21.36
+	  4    19.4   18.0   18.8     17.64
+	  5    19.5   15.2   16.9     14.75
+	  6    20.7   12.7   15.3     12.44
+	  7    16.7   11.0   14.5     10.55
+	  8    18.9    9.4   13.4      9.00
+
+
+
+ 
+  

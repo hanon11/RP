@@ -1,0 +1,120 @@
+1. TITLE: 
+	Image Segmentation data
+
+2. USE IN STATLOG
+	2.1 Testing Mode:	
+		10 Fold Cross-Validation
+
+	2.2 Special Preprocessing
+		No
+
+	2.3 Test Results
+				Error Rate	TIME
+		Algorithm	Train	Test	Train	Test
+		--------------------------------------------
+		 Alloc80 	0.033	0.030	15274	?
+		 Ac2 		0	0.031	18173	479
+		 BayTree 	0	0.033	677	27
+		 NewId 		0	0.034	386	2
+		 Dipol92 	0.21	0.039	503	25	
+		 C4.5 		0.013	0.040	142	1
+		 Cart 		0.005	0.040	79	2
+		 Cn2 		0.003	0.043	114	3
+		 IndCart 	0.012	0.045	1411	1325
+		 LVQ 		0.019	0.046	368	6
+		 Smart 		0.039	0.052	13884	1
+		 BackProp 	0.028	0.054	88467	0
+		 Cal5 		0.042	0.062	247	14
+		 Kohonen 	0.046	0.067	11333	9
+		 Radial 	0.047	0.069	65	11
+		 KNN 		0	0.077	5	28
+		 LogDisc 	0.098	0.109	302	8
+		 Castle 	0.108	0.112	465	38
+		 Discrim 	0.112	0.116	74	7
+		 QuaDisc 	0.155	0.157	50	16
+		 Bayes 		0.260	0.265	516	29
+		 Itrule 	0.445	0.455	546	20
+		 Default 	0.760	0.760	?	?
+		 Cascade 	?	100.0
+
+
+3. SOURCE and PASTE USAGE
+	3.1	Source Information
+   		-- Creators: Vision Group, University of Massachusetts
+   		-- Donor: Vision Group (Carla Brodley, brodley@cs.umass.edu)
+   		-- Date: November, 1990
+ 
+	3.2 Past Usage: 
+		None yet published
+
+4. DATASET DESCRIPTION:
+
+   The instances were drawn randomly from a database of 7 outdoor 
+   images.  The images were handsegmented to create a classification
+   for every pixel.  
+
+   Each instance is a 3x3 region.
+
+	4.1. Number of Instances:  2310
+
+	4.2. Number of Attributes: 19 continuous attributes
+
+	4.3 Number of Classes: 7
+   		Classes: 
+			1 = brickface	330 examples (14.29%) 
+	    		2 = sky		330 examples (14.29%) 
+	    		3 = foliage	330 examples (14.29%) 
+	    		4 = cement	330 examples (14.29%) 
+	    		5 = window	330 examples (14.29%) 
+	    		6 = path	330 examples (14.29%) 
+	    		7 = grass	330 examples (14.29%)
+
+	4.4. Attribute Information:
+
+    		1.  region-centroid-col:  the column of the center pixel of the region.
+    		2.  region-centroid-row:  the row of the center pixel of the region.
+    		3.  region-pixel-count:  the number of pixels in a region = 9.
+    		4.  short-line-density-5:  the results of a line extractoin algorithm
+		 that counts how many lines of length 5 (any orientation) with
+         	 low contrast, less than or equal to 5, go through the region.
+    		5.  short-line-density-2:  same as short-line-density-5 but counts 
+		 lines of high contrast, greater than 5.
+    		6.  vedge-mean:  measure the contrast of horizontally
+   		 adjacent pixels in the region.  There are 6, the mean and 
+         	 standard deviation are given.  This attribute is used as
+        	 a vertical edge detector.
+    		7.  vegde-sd:  (see 6)
+    		8.  hedge-mean:  measures the contrast of vertically adjacent
+          	 pixels. Used for horizontal line detection. 
+    		9.  hedge-sd: (see 8).
+    		10. intensity-mean:  the average over the region of (R + G + B)/3
+    		11. rawred-mean: the average over the region of the R value.
+    		12. rawblue-mean: the average over the region of the B value.
+    		13. rawgreen-mean: the average over the region of the G value.
+    		14. exred-mean: measure the excess red:  (2R - (G + B))
+    		15. exblue-mean: measure the excess blue:  (2B - (G + R))
+    		16. exgreen-mean: measure the excess green:  (2G - (R + B))
+    		17. value-mean:  3-d nonlinear transformation
+         	    of RGB. (Algorithm can be found in Foley and VanDam, Fundamentals
+         	    of Interactive Computer Graphics)
+    		18. saturation-mean:  (see 17)
+    		19. hue-mean:  (see 17)
+
+
+		Missing Attribute Values: None
+
+
+NOTE
+        EIGHT ATTRIBUTES ARE LINEAR COMBINATIONS (OR ARE CONSTANT), AND ARE
+        BETTER REMOVED FOR THE PURPOSES OF LINEAR, QUADRATIC OR SIMILAR ALGORITHMS.
+                     (NAMELY attributes X3, X10-X16).
+    
+ 
+
+CONTACTS
+	statlog-adm@ncc.up.pt
+	bob@stams.strathclyde.ac.uk
+	
+
+================================================================================
+    

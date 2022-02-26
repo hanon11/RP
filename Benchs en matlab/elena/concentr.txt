@@ -1,0 +1,43 @@
+                 ###########################
+                 # The Concentric database #
+                 ###########################
+
+
+1. Aim :
+
+    Study of the linear separability of the classifier when some classes are 
+    nested in other without overlapping.
+
+2. Description :
+
+    Bidimentional uniform concentric circular distributions with two classes.
+    The database is entirely contained in the square (0,0), (1,1).
+
+        2500 instances, 1579 in class 1 (63.2%), 921 in class 0 (36.8%).
+ 
+    - The points of class 0 are uniformly distributed into a circle of 
+      radius 0.3 centered on (0.5,0.5).
+
+    - The points of class 1 are uniformely distributed into a ring    
+      centered on (0.5,0.5) with internal and external radius respectively 
+      egal to 0.3 and 0.5.
+
+
+3. Best theoretical Bayes confusion : 
+
+          Class     0      1  
+           0      100      0
+           1        0    100
+
+   (The classes don't overlap).
+
+
+4. Confusion obtained with the k_NN classifier (Leave_One_Out).
+   k has been set to 7 in order to obtain 
+   the best averaged error rate : 0.96 +/- 0.5%.
+
+          Class         0               1  
+           0      99.1 +/- 0.6%    0.9 +/- 0.6%
+           1       1.0 +/- 0.5%   99.0 +/- 0.5%
+
+
