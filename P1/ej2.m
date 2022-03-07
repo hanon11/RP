@@ -14,21 +14,24 @@ B = sol(1); C = sol(2);
 
 % calculamos los parámetros de la exponencial
 A = exp(C); 
-plot (x,ya,'o');
+figure;
+plot (x,ya,'or');
 estimacion = A * exp(-B*x);
 
 hold on;
 plot (x, estimacion, 'r');
-
+hold off;
 % apartado b)
 x2 = x/10;
 yb = 3*x2.*exp(2*x2)+rand(size(x2));
 ybp = log(yb);
-plot(x2,yb,'*');
+figure;
+plot(x2,yb,'*b');
 sol = polyfit(x2,ybp,1);
 B = sol(1); A = sol(2);
 C = exp(A);
+hold on;
 estimacion = C.*x2.*exp(B*x2);
-plot (x2, estimacion, 'b');
+plot (x2, estimacion, 'ob');
 hold off;
-legend('Puntos a)', 'Recta a)', 'Puntos b)', 'Recta b)');
+%legend('Puntos a)', 'Recta a)', 'Puntos b)', 'Recta b)');
