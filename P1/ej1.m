@@ -37,5 +37,7 @@ xr=[0 10];
 yr=[coefs(2) coefs(1)*10+coefs(2)];
 plot (xr,yr); hold off;
 legend("v1 a", 'v2 a', 'v1 b', 'v2 b');
-
+% al añadir el nuevo dato, la recta se hace mucho mas paralela al eje x, ya
+% que el valor de x es bastante mas alto de los que ya tenemos y la y es
+% bastante pequeña. Luego la nueva recta debe adaptarse a esto
 
