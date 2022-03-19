@@ -9,7 +9,7 @@ y = exp(x.^3 - x.^2 + 0.01*x + 2) + 0.04 * randn(size(x));
 
 % 1. Un polinomio de orden 1: y = a + b*x
 for i=1:5
-    K=10;
+    K=length(x);
     E1(i)=0;
     switch (i)
         case 1
@@ -89,4 +89,4 @@ for i=1:5
     end
 end
 
-figure,plot(E1), title('CV=10');
+figure,plot(E1), title('LOO');
