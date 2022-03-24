@@ -2,12 +2,11 @@ clear all;
 close all;
 clc;
 
-rand('seed', 0);
-randn('seed', 0);
+rng(0);
 x = rand(1,100);
 y = exp(x.^3 - x.^2 + 0.01*x + 2) + 0.04 * randn(size(x));
 
-% 1. Un polinomio de orden 1: y = a + b*x
+
 for i=1:5
     K=10;
     E1(i)=0;
@@ -89,4 +88,4 @@ for i=1:5
     end
 end
 
-figure,plot(E1), title('CV=10');
+bar(E1);title("CV=10")

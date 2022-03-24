@@ -6,7 +6,6 @@ randn('seed',0)
 [x,y]=muestra(80);
 
 for i=1:8
-    
     % 1. Error de generalizacion - teórico
     p = polyfit(x,y,i);
     % ---

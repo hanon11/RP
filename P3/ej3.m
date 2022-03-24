@@ -2,12 +2,11 @@ clear all;
 close all;
 clc;
 
-rand('seed', 0);
-randn('seed', 0);
+rng(0);
 x = rand(1,100);
 y = exp(x.^3 - x.^2 + 0.01*x + 2) + 0.04 * randn(size(x));
 
-% 1. Un polinomio de orden 1: y = a + b*x
+
 for i=1:5
     K=length(x);
     E1(i)=0;
@@ -89,4 +88,70 @@ for i=1:5
     end
 end
 
-figure,plot(E1), title('LOO');
+
+figure,  bar(E1); title("Error LOO")
+
+% ============================= RANDOM SAMPLING =========================
+Niter = 1000;
+for i=1:5
+   E2(i)=0;
+    switch (i)
+        case 1
+        for j=1:Niter
+            [x,y]=shuffle(x,y);
+             A = [x(1:75)' ones(length(x(1:75)), 1)];
+             A2 = [x(76:100)' ones(length(x(76:100)), 1)];
+             coefs = pinv(A)*y(1:75)';
+             yEstimada = A2*coefs;
+             E2(i) = E2(i)+sum((y(76:100)-yEstimada').^2)/length(yEstimada);
+        end 
+           E2(i)=E2(i)/Niter;
+           E2(i) = sqrt(E2(i));
+        case 2
+            for j=1:Niter
+                [x,y]=shuffle(x,y);
+                 A = [x(1:75)' (x(1:75).^2)' ones(length(x(1:75)), 1)];
+                 A2 = [x(76:100)' (x(76:100).^2)' ones(length(x(76:100)), 1)];
+                 coefs = pinv(A)*y(1:75)';
+                 yEstimada = A2*coefs;
+                 E2(i) = E2(i)+sum((y(76:100)-yEstimada').^2)/length(yEstimada);
+            end 
+           E2(i)=E2(i)/Niter;
+           E2(i) = sqrt(E2(i));
+        
+        case 3
+            for j=1:Niter
+                [x,y]=shuffle(x,y);
+                 A = [x(1:75)' (x(1:75).^2)' (x(1:75).^3)' ones(length(x(1:75)), 1)];
+                 A2 = [x(76:100)' (x(76:100).^2)' (x(76:100).^3)' ones(length(x(76:100)), 1)];
+                 coefs = pinv(A)*y(1:75)';
+                 yEstimada = A2*coefs;
+                 E2(i) = E2(i)+sum((y(76:100)-yEstimada').^2)/length(yEstimada);
+            end 
+           E2(i)=E2(i)/Niter;
+           E2(i) = sqrt(E2(i));
+        case 4
+            for j=1:Niter
+                [x,y]=shuffle(x,y);
+                 A = [x(1:75)' (x(1:75).^2)' (x(1:75).^3)' sin(x(1:75))' ones(length(x(1:75)), 1)];
+                 A2 = [x(76:100)' (x(76:100).^2)' (x(76:100).^3)' sin(x(76:100))' ones(length(x(76:100)), 1)];
+                 coefs = pinv(A)*y(1:75)';
+                 yEstimada = A2*coefs;
+                 E2(i) = E2(i)+sum((y(76:100)-yEstimada').^2)/length(yEstimada);
+            end 
+           E2(i)=E2(i)/Niter;
+           E2(i) = sqrt(E2(i));
+        case 5
+            for j=1:Niter
+                [x,y]=shuffle(x,y);
+                 A = [x(1:75)' (x(1:75).^2)' (x(1:75).^3)' sin(x(1:75))'  cos(x(1:75))' ones(length(x(1:75)), 1)];
+                 A2 = [x(76:100)' (x(76:100).^2)' (x(76:100).^3)' sin(x(76:100))' cos(x(76:100))' ones(length(x(76:100)), 1)];
+                 coefs = pinv(A)*y(1:75)';
+                 yEstimada = A2*coefs;
+                 E2(i) = E2(i)+sum((y(76:100)-yEstimada').^2)/length(yEstimada);
+            end 
+           E2(i)=E2(i)/Niter;
+           E2(i) = sqrt(E2(i));
+    end
+end
+figure, bar(E2); title("Error Random Sampling")
