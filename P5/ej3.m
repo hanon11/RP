@@ -19,16 +19,17 @@ for j=1:K
     for k=1:2
         ind = find(ytrn==k);
         media{k} = meanpat(xtrn(:,ind));
+        covarianza{k} = covpat(xtrn(:,ind));
     end
 
     %distancia euclidea
     for k=1:2
-        distancia(k,:) = d_euclid(xtst, media{k});
+        distancia(k,:) = d_mahal(media{k}, xtst, covarianza{k});
     end
     [~,clase]=min(distancia);
-    aciertos_euclidea = sum(ytst == clase);
-    aciertos_euclidea = aciertos_euclidea/length(ytst);
-    E1 = E1+aciertos_euclidea;
+    aciertos_mahalanobis = sum(ytst == clase);
+    aciertos_mahalanobis = aciertos_mahalanobis/length(ytst);
+    E1 = E1+aciertos_mahalanobis;
 end
 E1=E1/K;
 E1 = sqrt(E1);
