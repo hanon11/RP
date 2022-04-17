@@ -37,7 +37,7 @@ elseif nargin==3,
    end;
 else,
    help plotquad
-   break;
+   return;
 end;
 
 a=W(1);

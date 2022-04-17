@@ -23,8 +23,6 @@ for k=1:2
     distanciaEuclidea(k,:) = d_euclid(x, media{k});
 end
 [~,claseEuclidea]=min(distanciaEuclidea);
-aciertos_euclidea = sum(y == claseEuclidea);
-aciertos_euclidea = aciertos_euclidea/length(y);
 
 %Mahalanobis
 for k=1:2
