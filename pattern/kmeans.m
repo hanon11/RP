@@ -38,5 +38,5 @@ while (sumaant ~= suma) & (contador<100),
       centroides(:,i)=meanpat(myclass(x,ganadores,i));
    end;
    contador=contador+1;
-   pause(0.1);
+   %pause(0.1);
 end;
