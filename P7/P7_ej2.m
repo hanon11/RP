@@ -14,10 +14,10 @@ for i=1:30
             [~,pos]=sort(d); % me quedo con las k distancias mas cercanas
             yestim(k) = mode(ytrn(pos(1:i))); %la que mas se repite 
         end
-        tasa_error = sum(find(ytst~=yestim));
-        E1(i) = E1(i)+tasa_error;
+        tasa_acierto = length(find(ytst==yestim));
+        E1(i) = E1(i)+tasa_acierto;
     end
     E1(i)=E1(i)/KCV;
 end
-E1=E1/length(y);
-figure, plot(E1);
+E1=100-E1/length(y)*100;
+figure, plot(E1);title('Error estimado CV=10. K vecinos (1 <= K <= 30)')
