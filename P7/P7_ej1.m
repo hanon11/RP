@@ -16,5 +16,6 @@ tasa_acierto_KNN = 100*length(find(y==yestim))/length(y);
 C2 = confusionmat(y, yestim);
 for i=1:height(C2)
     total = sum(C2(i,:));
-    C2(i,:) = C2(i,:)/total
+    C2(i,:) = C2(i,:)/total;
 end 
+disp(C2);
