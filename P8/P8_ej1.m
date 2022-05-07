@@ -6,7 +6,7 @@ rng(0);
 x=randnorm([3 4], [1 0.8 ; 0.8 1], 1000);
 x = x - [3 ; 4]; % restamos la media
 
-[W, lambda] = pca(x);
+[W, ~] = pca(x);
 x1=W*x;
 figure, plot(x(1,:), x(2,:),'*r'); hold on;
 plot(x1(1,:), x1(2,:),'*b'); hold off;legend('Datos iniciales', 'x prima');
