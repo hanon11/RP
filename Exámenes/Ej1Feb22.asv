@@ -1,0 +1,21 @@
+load iris
+N = 3;
+centroies
+%M = calcula_centros(x, y, N);
+%salida_estimada = clasifica(xtst, M);
+
+
+function centroides = k_means(x,k)
+    centroides = x(:,1:k);
+    for i=1:100
+        for j=1:k
+            d(j,:)=d_euclid(x, centroides(:,j));
+        end
+        [~,ganador]=min(d);
+        for j=1:k
+            ind = find(ganador==j);
+            centroides(:,j)=meanpat(x(:,ind));
+        end
+    end
+end
+
