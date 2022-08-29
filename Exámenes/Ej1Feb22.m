@@ -28,12 +28,11 @@ function centroides = calcula_centros(x,y,N)
         c{i}=k_means(xp{i},N);
     end
     centroides = [c{1} c{2} c{3}];
-    valores_centroides = [1 1 1 2 2 2 3 3 3];
+    centroides = [centroides; 1 1 1 2 2 2 3 3 3];
 end
 
 function salida = clasifica(x0, centroides)
-    valores_centroides = [1 1 1 2 2 2 3 3 3];
-    distancia = d_euclid(x0,centroides);
+    distancia = d_euclid(x0,centroides(1:height(centroides)-1,:));
     [~,pos] = sort(distancia);
-    salida = valores_centroides(1,pos(1))-1;
+    salida = centroides(height(centroides),pos(1))-1;
 end
