@@ -15,7 +15,7 @@ ya = 1./(y.*y);
 yp = log(ya); 
 % solucion del problema lineal
 sol = polyfit(x,yp,1);
-B = sol(1); C = sol(2); 
+B = -sol(1); C = sol(2); 
 
 % calculamos los parámetros de la exponencial
 A = exp(C); 
